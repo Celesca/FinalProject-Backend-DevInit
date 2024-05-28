@@ -1,10 +1,16 @@
-// src/index.ts
 import express, { Response, Request } from "express";
+import { userRouter } from "./routes/userRouter";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-app.get("/", (req: Request, res: Response) => {
+app.use("/users", userRouter);
+
+app.get("/health", (req: Request, res: Response) => {
   res.send(`Hello, TypeScript with Express!`);
 });
 
