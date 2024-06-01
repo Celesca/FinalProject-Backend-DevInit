@@ -47,19 +47,8 @@ userRouter.post("/login", async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Invalid username or password" });
   } else {
     client.release();
+    // Update last_login in users field
+    await pool.query("UPDATE users SET last_login = NOW() WHERE username = $1", [username]);
     return res.status(200).json(user);
-  }
-});
-
-userRouter.get("/users", async (req, res) => {
-  try {
-    const client = await pool.connect();
-    const result = await client.query("SELECT * FROM users"); // Adjust the query as necessary
-    client.release();
-
-    res.status(200).json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal Server Error" });
   }
 });
