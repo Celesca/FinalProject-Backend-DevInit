@@ -25,4 +25,21 @@ describe("Postgres DB Connection", () => {
     expect(result.rows).toBeTruthy();
     client.release();
   });
+
+  test("POST /register should create a new user", async () => {
+    const client = await pool.connect();
+    const result = await client.query("INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING *", [
+      "testuser",
+      "password",
+      "test@email.com",
+    ]);
+
+    expect(result.rows).toBeTruthy();
+    client.release();
+
+    // Clean up
+    const deleteClient = await pool.connect();
+    await deleteClient.query("DELETE FROM users WHERE username = $1", ["testuser"]);
+    deleteClient.release();
+  });
 });
