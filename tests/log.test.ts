@@ -70,7 +70,6 @@ describe("Log Unit Testing", () => {
   });
 
   test("Add a new log entry", async () => {
-    console.log("test_user_id:", test_user_id);
     try {
       const response = await addLog(test_user_id, "Test log entry");
       expect(response.status).toBe(201);
@@ -78,6 +77,31 @@ describe("Log Unit Testing", () => {
       expect(response.body.content).toBe("Test log entry");
     } catch (err) {
       console.error("Error in add log test:", err);
+      throw err;
+    }
+  });
+
+  test("Update a log entry", async () => {
+    try {
+      const response = await addLog(test_user_id, "Test log entry");
+      const updatedResponse = await request("http://localhost:3000").put(`/api/logs/${response.body.log_id}`).send({
+        content: "Updated log entry",
+      });
+      expect(updatedResponse.status).toBe(200);
+      expect(updatedResponse.body.content).toBe("Updated log entry");
+    } catch (err) {
+      console.error("Error in update log test:", err);
+      throw err;
+    }
+  });
+
+  test("Delete a log entry", async () => {
+    try {
+      const response = await addLog(test_user_id, "Test log entry");
+      const deleteResponse = await request("http://localhost:3000").delete(`/api/logs/${response.body.log_id}`);
+      expect(deleteResponse.status).toBe(200);
+    } catch (err) {
+      console.error("Error in delete log test:", err);
       throw err;
     }
   });
