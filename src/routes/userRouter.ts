@@ -29,6 +29,28 @@ userRouter.post("/register", async (req: Request, res: Response) => {
   res.status(201).json(result.rows[0]);
 });
 
+userRouter.post("/login", async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: "Username and password are required" });
+  }
+  const client = await pool.connect();
+  const result = await client.query("SELECT * FROM users WHERE username = $1", [username]);
+  if (result.rows.length === 0) {
+    client.release();
+    return res.status(400).json({ error: "Invalid username or password" });
+  }
+  const user = result.rows[0];
+  const passwordMatch = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) {
+    client.release();
+    return res.status(400).json({ error: "Invalid username or password" });
+  } else {
+    client.release();
+    return res.status(200).json(user);
+  }
+});
+
 userRouter.get("/users", async (req, res) => {
   try {
     const client = await pool.connect();
@@ -39,12 +61,5 @@ userRouter.get("/users", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-userRouter.post("/login", async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ error: "Username and password are required" });
   }
 });
