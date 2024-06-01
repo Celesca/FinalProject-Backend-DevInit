@@ -1,4 +1,3 @@
-// Import the required modules
 import { Pool } from "pg";
 import request from "supertest";
 
@@ -29,6 +28,10 @@ const loginUser = async (username: string, password: string) => {
 };
 
 describe("User Unit Testing", () => {
+  afterAll(async () => {
+    await pool.end();
+  });
+
   test("Postgres DB Connection should establish a successful pg db connection", async () => {
     const client = await pool.connect();
     expect(client).toBeTruthy();
