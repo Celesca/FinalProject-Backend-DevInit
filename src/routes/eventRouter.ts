@@ -28,3 +28,46 @@ eventRouter.post("/", async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Error in creating event" });
   }
 });
+
+eventRouter.get("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+  try {
+    const response = await pool.query("SELECT * FROM calendarevents WHERE event_id = $1", [id]);
+    return res.status(200).json(response.rows[0]);
+  } catch (err) {
+    return res.status(500).json({ error: "Error in fetching event" });
+  }
+});
+
+eventRouter.put("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { title, description, start_date, end_date } = req.body;
+  if (!id && !title && !description && !start_date && !end_date) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+  try {
+    const response = await pool.query(
+      "UPDATE calendarevents SET title = $1, description = $2, start_date = $3, end_date = $4 WHERE event_id = $5 RETURNING *",
+      [title, description, start_date, end_date, id],
+    );
+    return res.status(200).json(response.rows[0]);
+  } catch (err) {
+    return res.status(500).json({ error: "Error in updating event" });
+  }
+});
+
+eventRouter.delete("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+  try {
+    await pool.query("DELETE FROM calendarevents WHERE event_id = $1", [id]);
+    return res.status(200).json({ message: "Event deleted" });
+  } catch (err) {
+    return res.status(500).json({ error: "Error in deleting event" });
+  }
+});
