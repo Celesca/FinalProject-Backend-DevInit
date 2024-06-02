@@ -8,6 +8,15 @@ logRouter.get("/", async (req: Request, res: Response) => {
   return res.status(200).json(logs.rows);
 });
 
+logRouter.get("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const log = await pool.query("SELECT * FROM dailylogs WHERE log_id = $1", [id]);
+  if (log.rows.length === 0) {
+    return res.status(404).json({ error: "Log not found" });
+  }
+  return res.status(200).json(log.rows[0]);
+});
+
 logRouter.post("/", async (req: Request, res: Response) => {
   const { user_id, content } = req.body;
   if (!user_id) {
@@ -32,7 +41,6 @@ logRouter.delete("/:id", async (req: Request, res: Response) => {
 logRouter.put("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   const { content } = req.body;
-  // Check if log id exists
   const log = await pool.query("SELECT * FROM dailylogs WHERE log_id = $1", [id]);
   if (log.rows.length === 0) {
     return res.status(404).json({ error: "Log not found" });
