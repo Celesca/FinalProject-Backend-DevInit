@@ -4,6 +4,8 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { logRouter } from "./routes/logRouter";
+import { todoRouter } from "./routes/todoRouter";
+import { eventRouter } from "./routes/eventRouter";
 
 dotenv.config();
 
@@ -20,6 +22,8 @@ const port = process.env.PORT || 3000;
 
 app.use("/api/users", userRouter);
 app.use("/api/logs", logRouter);
+app.use("/api/todos", todoRouter);
+app.use("/api/events", eventRouter);
 
 app.get("/health", (req: Request, res: Response) => {
   res.send(`Hello, TypeScript with Express!`);

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS DailyLogs (
     user_id INT NOT NULL,
     content TEXT NOT NULL,
     date DATE NOT NULL DEFAULT CURRENT_DATE,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TYPE status_type AS ENUM ('pending', 'completed');
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS ToDoLists (
     priority INT NOT NULL DEFAULT 0,
     status status_type NOT NULL DEFAULT 'pending',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS CalendarEvents (
@@ -37,5 +37,5 @@ CREATE TABLE IF NOT EXISTS CalendarEvents (
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
