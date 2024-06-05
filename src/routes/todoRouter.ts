@@ -36,7 +36,7 @@ todoRouter.post("/", async (req, res) => {
     return res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error("Error in create todo:", err);
-    throw err;
+    return res.status(500).json({ error: "Failed to create todo" });
   }
 });
 
