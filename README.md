@@ -35,11 +35,9 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#design-prototype">Design Prototype</a></li>
     <li><a href="#test-report">Test Report</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -52,17 +50,10 @@ You can locate the Era Planner Front-end Repository here : [<a href="https://git
 For this project is the new chapter or the Backend server for the old project which is from the Dev Init Program too.
 
 There are several endpoints of feature you can use:
-* Calendar feature :
-<br>Organize and plan the event in the calendar. They will alert you at the Home page 3 days before the event will occur.
-* Daily Journal feature :
-<br>Take a note from the story or lecture and review it in the future. Using the local storage to load and manage the journal data.
-* To-do List feature:
-<br>Forgot to do something you need to? Note some lists and do it to clear. Using the local storage to load and manage the to-do list data. 
-* Alert feature:
-<br>When you finally enter the home page. If you have some events that will going to occur in 3 days. It will start to alert.
-<br>When you clicked the important button such as Delete Button, It will also generated the alert before the action.
-* Light/Dark Mode feature:
-<br>There is a theme switcher at the navbar. When toggle the button, the theme will be switch to its color theme.
+* User endpoints
+* Todo-list endpoints
+* Daily Log endpoints
+* Event endpoints
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -95,41 +86,26 @@ _Following the guide from below through your terminal._
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Celesca/FinalProject-Frontend-DevInit
+   git clone https://github.com/Celesca/FinalProject-Backend-DevInit
    ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Move to folder directory
+2. Move to folder directory
    ```sh
    cd FinalProject-Frontend-DevInit
    ```
-4. Run the project
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Run the backend server (Port 3000)
    ```sh
    npm run dev
    ```
+5. Start database server with docker (Port 5432)
+   ```sh
+   docker-compose up --build
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- UX/UI Design -->
-
-## Design Prototype
-
-![Era Planner Prototype](https://github.com/Celesca/Celesca/blob/main/Project%20Picture/EraPlannerPrototype2.png)
-
-Using Figma to design the prototype of this web application to follows and adjust them.
-The main keys of this web application design including:
-- Easy to use and minimal theme
-- Convenience and faster. No complex UI
-- Monotone and basic color theme
-- Have Light/Dark mode to prefer UX
-- No complex shape and no animation
-
-
-Here is the link you can check in Figma design prototype. There's a 2 flow including Phone and Desktop version.
-
-Figma : [EraPlanner Prototype](https://www.figma.com/file/r9VDViLPuaDHZ6vuGNi9hX/Personal-Manager?type=design&node-id=0%3A1&mode=dev)
 
 <!-- Test Report -->
 ## Test Report
@@ -185,16 +161,13 @@ Figma : [EraPlanner Prototype](https://www.figma.com/file/r9VDViLPuaDHZ6vuGNi9hX
 
 
 ## Automate Testing using Jest.js
-  - Automate Testing will cover "Page Load and Rendering" section in test cases. Because Jest.js can used for testing the rendering page.
-  - You can run the following code to perform the unit testing in this projects.
 
 ```sh
 npm test
 ```
 
-## Manual Testing and Usability Test
+## Videos about touring this project
   - Recording the testing and checked all the test cases.
-  - Test Report Docs : [FinalProject_DevInit_TestReport](https://github.com/Celesca/Celesca/blob/main/Project%20Picture/EraPlannerTest.pdf)
   - Video : [FinalProject_DevInit_Video](https://www.youtube.com/watch?v=LyzN7LaHycQ)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -213,13 +186,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 Linkedin - [Sawit Koseeyaumporn](https://www.linkedin.com/in/sawit-koseeyaumporn-418941256/)
 
 Project Link: [EraPlanner](https://github.com/Celesca/FinalProject-Frontend-DevInit)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
