@@ -4,6 +4,11 @@ import bcrypt from "bcrypt";
 
 export const userRouter = Router();
 
+userRouter.get("/", async (req: Request, res: Response) => {
+  const users = await pool.query("SELECT * FROM users");
+  return res.status(200).json(users.rows);
+});
+
 userRouter.post("/register", async (req: Request, res: Response) => {
   const { username, password, email } = req.body;
   if (!username || !password) {

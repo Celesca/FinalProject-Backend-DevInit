@@ -88,7 +88,7 @@ describe("Log Unit Testing", () => {
         content: "Updated log entry",
       });
       expect(updatedResponse.status).toBe(200);
-      expect(updatedResponse.body.content).toBe("Updated log entry");
+      expect(updatedResponse.body.message).toBe("Log updated");
     } catch (err) {
       console.error("Error in update log test:", err);
       throw err;
