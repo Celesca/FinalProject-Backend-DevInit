@@ -36,6 +36,9 @@ eventRouter.get("/:id", async (req: Request, res: Response) => {
   }
   try {
     const response = await pool.query("SELECT * FROM calendarevents WHERE event_id = $1", [id]);
+    if (response.rows.length === 0) {
+      return res.status(404).json({ error: "Event not found" });
+    }
     return res.status(200).json(response.rows[0]);
   } catch (err) {
     return res.status(500).json({ error: "Error in fetching event" });
@@ -65,7 +68,10 @@ eventRouter.delete("/:id", async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Invalid input" });
   }
   try {
-    await pool.query("DELETE FROM calendarevents WHERE event_id = $1", [id]);
+    const response = await pool.query("DELETE FROM calendarevents WHERE event_id = $1", [id]);
+    if (response.rowCount === 0) {
+      return res.status(404).json({ error: "Event not found" });
+    }
     return res.status(200).json({ message: "Event deleted" });
   } catch (err) {
     return res.status(500).json({ error: "Error in deleting event" });
