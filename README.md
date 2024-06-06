@@ -45,7 +45,7 @@
 ## About The Project
 
 Era Planner is the Front-end project that have concept of managing daily life.
-You can locate the Era Planner Front-end Repository here : [<a href="https://github.com/Celesca/">GitHub Repo</a>](https://github.com/Celesca/FinalProject-Frontend-DevInit)
+You can locate the Era Planner Front-end Repository here : [[<a href="https://github.com/Celesca/FinalProject-Frontend-Devinit">GitHub Repo</a>](https://github.com/Celesca/FinalProject-Frontend-DevInit)](https://github.com/Celesca/FinalProject-Frontend-DevInit)
 
 For this project is the new chapter or the Backend server for the old project which is from the Dev Init Program too.
 
